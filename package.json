@@ -1,0 +1,22 @@
+{
+  "name": "test-gulp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kaviarasurm/test-gulp.git"
+  },
+  "author": "kaviarasu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kaviarasurm/test-gulp/issues"
+  },
+  "homepage": "https://github.com/kaviarasurm/test-gulp#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
+}
