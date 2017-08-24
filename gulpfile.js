@@ -13,9 +13,9 @@ gulp.task('sass', function(){
   return gulp.src('source/scss/style.scss')
     .pipe(sass()) // Using gulp-sass
     .pipe(gulp.dest('dest/css'))
-	/*.pipe(browserSync.reload({
+	.pipe(browserSync.reload({
       stream: true
-    }))*/
+    }))
 });
 
 gulp.task('browserSync', function() {
@@ -43,7 +43,10 @@ gulp.task('scripts', function() {
   return gulp.src(['dest/js/jquery-1.11.3.min.js','dest/js/TweenMax.min.js','dest/js/jquery-parallax.js','dest/js/script.js'])
     .pipe(concat('kscripts.js'))
 	.pipe(javascriptObfuscator())
-    .pipe(gulp.dest('dest/js/'));
+    .pipe(gulp.dest('dest/js/'))
+	.pipe(browserSync.reload({
+      stream: true
+    }));
 });
 
 gulp.task('images', function(){
@@ -60,17 +63,20 @@ gulp.task('minify-html', function() {
     .pipe(htmlmin({
 		collapseWhitespace: true
 	}))
-    .pipe(gulp.dest('dest'));
+    .pipe(gulp.dest('dest'))
+	.pipe(browserSync.reload({
+      stream: true
+    }));
 });
 
-gulp.task('watch', function(){
-  gulp.watch('source/scss/style.scss', ['sass']); 
-  gulp.watch('dest/css/*.css', ['minify-css']);  
-  gulp.watch('source/js/*.js', ['compress']); 
-  gulp.watch(['dest/js/jquery-1.11.3.min.js','dest/js/TweenMax.min.js','dest/js/jquery-parallax.js','dest/js/script.js'], ['scripts']); 
-  gulp.watch('source/img/*.+(png|jpg|jpeg|gif|svg)', ['images']); 
-  gulp.watch('source/*.html', ['minify-html']); 
-  // Reloads the browser whenever HTML or JS files change
- // gulp.watch('dest/*.html', browserSync.reload); 
-  //gulp.watch('dest/js/*.js', browserSync.reload); 
+gulp.task('watch',['browserSync', 'sass'], function(){
+	gulp.watch('source/scss/style.scss', ['sass']); 
+	gulp.watch('dest/css/*.css', ['minify-css']);  
+	gulp.watch('source/js/*.js', ['compress']); 
+	gulp.watch(['dest/js/jquery-1.11.3.min.js','dest/js/TweenMax.min.js','dest/js/jquery-parallax.js','dest/js/script.js'], ['scripts']); 
+	gulp.watch('source/img/*.+(png|jpg|jpeg|gif|svg)', ['images']); 
+	gulp.watch('source/*.html', ['minify-html']); 
+	// Reloads the browser whenever HTML or JS files change
+	//gulp.watch('dest/*.html', browserSync.reload); 
+	//gulp.watch('dest/js/*.js', browserSync.reload); 
 })
